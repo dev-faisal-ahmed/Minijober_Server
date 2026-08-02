@@ -12,7 +12,7 @@ datasource db {
   provider = "postgresql"
 }
 
-/*  ------------------------------- User ------------------------------- */
+// ------------------------------- User -------------------------------
 
 model User {
   id         String       @id @default(uuid())
@@ -25,6 +25,9 @@ model User {
   verifiedAt DateTime?
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
+
+  // Relations
+  userUserRoles UserUserRole[]
 
   @@index([email])
   @@index([phone])
@@ -39,4 +42,27 @@ enum UserProvider {
 enum UserStatus {
   ACTIVE
   INACTIVE
+}
+
+// ------------------------------- User Roles -------------------------------
+
+model UserUserRole {
+  id        String   @id @default(uuid())
+  userId    String
+  role      UserRole
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("user_user_roles")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  EMPLOYER
+  EMPLOYEE
 }
