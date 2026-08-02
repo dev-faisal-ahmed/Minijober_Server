@@ -1,0 +1,23 @@
+info:
+  name: register
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{api_url}}/auth/register"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Faisal Ahmed",
+        "email": "faisal@gmail.com",
+        "password": "1234"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

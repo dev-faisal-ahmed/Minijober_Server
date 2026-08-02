@@ -35,3 +35,4 @@ export const StatusCode = {
 } as const;
 
 export type TStatusCode = (typeof StatusCode)[keyof typeof StatusCode];
+export type TStatusCodeKey = keyof typeof StatusCode;

@@ -5,23 +5,24 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-// ------- User 
+/*  ------------------------------- User ------------------------------- */
+
 model User {
-  id         BigInt       @id @default(autoincrement())
+  id         String       @id @default(uuid())
   name       String
-  email      String?
+  email      String
   phone      String?
   password   String?
   provider   UserProvider @default(CREDENTIALS)
-  status     UserStatus   @default(PENDING)
-  verifiedAt DateTime
+  status     UserStatus   @default(ACTIVE)
+  verifiedAt DateTime?
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
 
@@ -38,6 +39,4 @@ enum UserProvider {
 enum UserStatus {
   ACTIVE
   INACTIVE
-  PENDING
-  BLOCKED
 }
